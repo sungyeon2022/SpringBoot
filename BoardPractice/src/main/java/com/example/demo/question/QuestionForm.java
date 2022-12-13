@@ -16,3 +16,4 @@ public class QuestionForm {
 	@NotEmpty(message = "내용이 비어있습니다.")
 	private String content;
 }
+//에러 처리

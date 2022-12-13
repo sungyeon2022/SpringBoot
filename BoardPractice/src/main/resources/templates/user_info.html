@@ -1,0 +1,26 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container my-3">
+  <h4 class="border-bottom py-2">회원정보</h4>
+    <label for="username" class="mt-2 mb-2">아이디</label>
+    <div class="card">
+      <div class="card-body">
+        <div class="card-text" th:text="${siteuser.username}"></div>
+      </div>
+    </div>
+    <label for="password" class="mt-2 mb-2">비밀번호</label>
+    <div class="card">
+      <div class="card-body">
+        <div class="card-text"> ●●●●●●●●●●●
+        	<a th:href="@{/user/pwmodi}" class="btn btn-sm btn-outline-primary mb-0 mt-0" style="float: right;"
+								 > 비밀번호 변경 </a>
+        </div>
+      </div>
+    </div>
+	<label for="email" class="mt-2 mb-2">이메일</label>
+    <div class="card">
+      <div class="card-body">
+        <div class="card-text" th:text="${siteuser.email}"></div>
+      </div>
+    </div>
+  </div>
+</html>

@@ -1,0 +1,25 @@
+<html layout:decorate="~{layout}">
+  <div layout:fragment="content" class="container my-3">
+  	<form th:action="@{/user/pwmodi}" th:object="${pwModifyForm}" method="post">
+    	<div th:replace="form_errors :: formErrorsFragment"></div>
+    	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+   		<legend>비밀번호 변경</legend>
+   		<p class="mb-3">
+   			<input type="password" th:field="*{now_pw}" class="form-control" placeholder="현재 비밀번호" style="width: 336px;"
+   			onfocus="this.placeholder=''" onblur="this.placeholder='현재 비밀번호'">
+		</p>
+		<p class="mb-0">
+			<input type="password" th:field="*{modipw1}" class="form-control" placeholder="변경 비밀번호" style="width: 336px;"
+   			onfocus="this.placeholder=''" onblur="this.placeholder='변경 비밀번호'">
+		</p>
+		<p class="mt-0">
+			<input type="password" th:field="*{modipw2}" class="form-control" placeholder="변경 비밀번호 확인" style="width: 336px;"
+   			onfocus="this.placeholder=''" onblur="this.placeholder='변경 비밀번호 확인'">
+		</p>
+    <p class="mt-5 btn-group">
+      <button type="submit" class="btn btn-outline-primary"> 확인 </button>
+      <button type="button" class="btn btn-outline-primary" onclick="location.href='/user/info'"> 취소 </button>
+    </p>
+    </form>
+</div>
+</html>

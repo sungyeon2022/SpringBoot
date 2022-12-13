@@ -1,7 +1,6 @@
 package com.example.demo.question;
 
 import java.security.Principal;
-import java.util.List;
 
 import javax.validation.Valid;
 
@@ -37,17 +36,21 @@ public class QuestionController {
 	
 	@RequestMapping("/list")
 	public String list(Model model, @RequestParam(value = "page",defaultValue = "0") int page,
-			@RequestParam(value = "kw", defaultValue = "") String kw) {
+			@RequestParam(value = "kw", defaultValue = "") String kw,
+			@RequestParam(value = "pagesort", defaultValue = "createDate") String pagesort) {
 		log.info("page{}, kw:{}",page, kw);
-		Page<Question> paging = this.questionService.getList(page, kw);
+		Page<Question> paging = this.questionService.getList(page, kw, pagesort);
 		model.addAttribute("paging",paging);
 		model.addAttribute("kw",kw);
 		
 		return "question_list";
 	}
+	
 	@RequestMapping("/detail/{id}")
-	public String detail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm) {
+	public String detail(Principal principal ,Model model, @PathVariable("id") Integer id, AnswerForm answerForm) {
 		Question question = this.questionService.getQuestion(id);
+		SiteUser siteUser = this.userService.getUser(principal.getName());
+		this.questionService.read(question, siteUser);
 		model.addAttribute("question",question);
 		return "question_detail";
 	}
@@ -59,7 +62,7 @@ public class QuestionController {
 	}
 	
 	@PreAuthorize("isAuthenticated()")
-	//메서드 /creat 오버로딩
+	//메서드 오버로딩
 	@PostMapping("/create")
 	public String questionCreate(@Valid QuestionForm questionForm, BindingResult bindingResult,
 			Principal principal) {

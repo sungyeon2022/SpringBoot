@@ -51,11 +51,12 @@ public class QuestionService {
 		};
 	}
 	
-	public Page<Question> getList(int page, String kw){
+	public Page<Question> getList(int page, String kw, String pagesort){
 		List<Sort.Order> sorts = new ArrayList<>();
-		sorts.add(Sort.Order.desc("createDate"));
+		sorts.add(Sort.Order.asc(pagesort));
 		Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
-		return this.questionRepository.findAllByKeyword(kw, pageable);
+		Specification<Question> spec = search(kw);
+		return this.questionRepository.findAll(spec, pageable);
 	}
 	
 	public Question getQuestion(Integer id) {
@@ -77,14 +78,6 @@ public class QuestionService {
 		//질문 저장 메서드 생성
 	}
 	
-	public Page<Question> getList(int page){
-		List<Sort.Order> sorts = new ArrayList<>();
-		sorts.add(Sort.Order.desc("createDate"));
-		Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
-		return this.questionRepository.findAll(pageable);
-		//한페이지에 보여줄 게시물 갯수
-	}
-	
 	public void modify(Question question, String subject, String content) {
 		question.setSubject(subject);
 		question.setContent(content);
@@ -97,6 +90,11 @@ public class QuestionService {
 	
 	public void vote(Question question, SiteUser siteUser) {
 		question.getVoter().add(siteUser);
+		this.questionRepository.save(question);
+	}
+	
+	public void read(Question question, SiteUser siteUser) {
+		question.getRead().add(siteUser);
 		this.questionRepository.save(question);
 	}
 }
