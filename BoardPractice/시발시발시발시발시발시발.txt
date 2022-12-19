@@ -33,5 +33,7 @@ usercontorller에서 delet, modify, info 기능 이용시 자동 이동
 
 controller에서 return한 데이터를 ajax구문에서 처리
 
-넓은 field는 div로 작은 예) input
-은 p로 감쌌다(네이버는)
+넓은 범위?는 div로 작은 범위? 예) input
+는 p로 감쌌다(네이버는)
+
+

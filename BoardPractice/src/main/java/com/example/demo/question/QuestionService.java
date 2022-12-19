@@ -51,14 +51,13 @@ public class QuestionService {
 		};
 	}
 	
-	public Page<Question> getList(int page, String kw, String pagesort){
+	public Page<Question> getList(int page, int subcount, String kw) {
 		List<Sort.Order> sorts = new ArrayList<>();
-		sorts.add(Sort.Order.asc(pagesort));
-		Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+		sorts.add(Sort.Order.asc("id")); //정렬 기본 value
+		Pageable pageable = PageRequest.of(page, subcount, Sort.by(sorts));
 		Specification<Question> spec = search(kw);
 		return this.questionRepository.findAll(spec, pageable);
 	}
-	
 	public Question getQuestion(Integer id) {
 		Optional<Question> question = this.questionRepository.findById(id);
 		if (question.isPresent()) {

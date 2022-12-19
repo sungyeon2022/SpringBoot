@@ -12,44 +12,34 @@
         </div>
       </div>
     </div>
+      <div class="button-group mt-2">
+        <div class="dropdown d-grid gap-2 d-md-flex justify-content-md-end">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            게시물 개수
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <a class="dropdown-item" id="c10" href="javascript:void(0)" th:text="10">
+            </a>
+            <a class="dropdown-item" id="c20" href="javascript:void(0)" th:text="20">
+            </a>
+            <a class="dropdown-item" id="c30" href="javascript:void(0)" th:text="30">
+            </a>
+          </div>
+            <button class="btn btn-secondary">추천순</button>
+            <button class="btn btn-secondary">조회순</button>
+            <button class="btn btn-secondary">작성순</button>
+        </div>
+      </div>
   </div>
     <table class="table">
         <thead class="table-dark">
             <tr class="text-center">
-                <th style="width: 10%">
-                  <div class="dorpdown">
-                    <button class="btn btn-dark dropdown-toggle" type="button" id="dropdo">번호</button>
-                  </div>
-                </th>
-                <th style="width:35%">
-                	<div class="dorpdown">
-                    	<button class="btn btn-dark dropdown-toggle" type="button" id="dropdo">제목</button>
-                  	</div>
-                </th>
-                <th>
-                	<div class="dorpdown">
-                    	<button class="btn btn-dark dropdown-toggle" type="button" id="dropdo">글쓴이</button>
-                  	</div>
-                </th>
-                <th>
-                	<div class="dropdown">
-                    	<button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuVote" data-bs-toggle="dropdown" aria-expanded="true" data-bs-offset="10,20">추천수</button>
-                  		<form th:action="@{question/list}" method="post" class="dropdown-menu" aria-labelledby="dropdownMenuVote">
-                  			<a class="dropdown-item" type="submit" name="pagesort" id="pagesort" >오름차순</a>
-                  			<a class="dropdown-item">내림차순</a>
-                  		</form>
-                  	</div>
-                </th>
-                <th>
-                	<div class="dorpdown">
-                    	<button class="btn btn-dark dropdown-toggle" type="button" id="dropdo">조회수</button>
-                  	</div>
-                </th>
-                <th style="width: 20%;">
-                	<div class="dorpdown">
-                    	<button class="btn btn-dark dropdown-toggle" type="button" id="dropdo">작성일자</button>
-                  	</div>
-                </th>
+                <th> 번호 </th>
+                <th> 제목 </th>
+                <th> 작성자 </th>
+                <th> 추천수 </th>
+                <th> 조회수 </th>
+                <th> 작성일자 </th>
             </tr>
         </thead>
         <tbody>
@@ -96,8 +86,9 @@
     </div>
     <!-- 페이징처리 종료 -->
     <form th:action="@{/question/list}" method="get" id="searchForm">
-      <input type="hidden" id="kw" name="kw" th:value="${kw}">
-      <input type="hidden" id="page" name="page" th:value="${paging.number}">
+        <input type="hidden" id="kw" name="kw" th:value="${kw}">
+        <input type="hidden" id="page" name="page" th:value="${paging.number}">
+        <input type="hidden" id="subcount" name="subcount" th:value="${subcount}">
     </form>
 </div>
 <script layout:fragment="script" type="text/javascript">
@@ -108,11 +99,37 @@ Array.from(page_elements).forEach(function(element){
     document.getElementById('searchForm').submit();
   });
 });
+
+const c10 = document.getElementById('c10');
+c10.addEventListener('click',function() {
+  document.getElementById('kw').value = document.getElementById('search_kw').value;
+  document.getElementById('page').value = 0;
+  document.getElementById('subcount').value = 10;
+  document.getElementById('searchForm').submit();
+})
+
+const c20 = document.getElementById('c20');
+c20.addEventListener('click',function() {
+  document.getElementById('kw').value = document.getElementById('search_kw').value;
+  document.getElementById('page').value = 0;
+  document.getElementById('subcount').value = 20;
+  document.getElementById('searchForm').submit();
+})
+
+const c30 = document.getElementById('c30');
+c30.addEventListener('click',function() {
+  document.getElementById('kw').value = document.getElementById('search_kw').value;
+  document.getElementById('page').value = 0;
+  document.getElementById('subcount').value = 30;
+  document.getElementById('searchForm').submit();
+})
+
 const btn_search = document.getElementById("btn_search");
 btn_search.addEventListener('click',function() {
   document.getElementById('kw').value = document.getElementById('search_kw').value;
   document.getElementById('page').value=0;//검색 시작시 0번째부터 확인
   document.getElementById('searchForm').submit();
 });
+
 </script>
 </html>

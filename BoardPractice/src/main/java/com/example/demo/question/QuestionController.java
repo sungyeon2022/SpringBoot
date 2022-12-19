@@ -37,12 +37,12 @@ public class QuestionController {
 	@RequestMapping("/list")
 	public String list(Model model, @RequestParam(value = "page",defaultValue = "0") int page,
 			@RequestParam(value = "kw", defaultValue = "") String kw,
-			@RequestParam(value = "pagesort", defaultValue = "createDate") String pagesort) {
+			@RequestParam(value = "subcount", defaultValue = "10") int subcount) {
 		log.info("page{}, kw:{}",page, kw);
-		Page<Question> paging = this.questionService.getList(page, kw, pagesort);
+		Page<Question> paging = this.questionService.getList(page, subcount, kw);
 		model.addAttribute("paging",paging);
 		model.addAttribute("kw",kw);
-		
+		model.addAttribute("subcount",subcount);
 		return "question_list";
 	}
 	
