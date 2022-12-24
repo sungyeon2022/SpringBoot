@@ -7,12 +7,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.intThat;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import com.example.demo.user.SiteUser;
+import com.example.demo.user.UserService;
 import org.hibernate.hql.internal.NameGenerator;
 
 //import java.util.List;
@@ -43,15 +46,17 @@ class BoardPracticeApplicationTests {
 	
 	@Autowired
 	private AnswerRepositoy answerRepositoy;
-	
+	private UserService userService;
+
+	private Principal principal;
 	//@Transactional //Test과정에서 데이터베이스 세션이 종료된 후 하위 데이터를 가져올때 에러가 발생할수있다 따라서
 				   //	세션이 종료되지않게 하기위해 에너테이션을 추가한다
 	@Test
 	void testJpa() {
-		for(int i = 1;i<=300;i++) {
-			String subject = String.format("테스트 데이터입니다 : [%03d]",i); 
+		for (int i = 1; i <= 10; i++){
+			String subject = String.format("테스트 데이터입니다 : [%03d]",i);
 			String content = "내용무";
-			this.questionService.create(subject, content,null);
+			this.questionService.create(subject, content, null);
 		}
 		
 //		Optional<Question> oq = this.questionRepository.findById(2);

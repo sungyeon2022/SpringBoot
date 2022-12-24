@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -29,7 +30,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class QuestionService {	
 	private final QuestionRepository questionRepository;
-	
+
 	private Specification<Question> search(String kw){
 		return new Specification<>() {
 			private static final long serialVersionUID = 1L;
@@ -51,9 +52,9 @@ public class QuestionService {
 		};
 	}
 	
-	public Page<Question> getList(int page, int subcount, String kw) {
+	public Page<Question> getList(int page, int subcount, String kw, String order) {
 		List<Sort.Order> sorts = new ArrayList<>();
-		sorts.add(Sort.Order.asc("id")); //정렬 기본 value
+		sorts.add(Sort.Order.desc(order)); //정렬 기본 value
 		Pageable pageable = PageRequest.of(page, subcount, Sort.by(sorts));
 		Specification<Question> spec = search(kw);
 		return this.questionRepository.findAll(spec, pageable);
@@ -89,11 +90,12 @@ public class QuestionService {
 	
 	public void vote(Question question, SiteUser siteUser) {
 		question.getVoter().add(siteUser);
+		question.setVoteCount(String.valueOf(question.getVoter().size()));
 		this.questionRepository.save(question);
 	}
 	
-	public void read(Question question, SiteUser siteUser) {
-		question.getRead().add(siteUser);
+	public void read(Question question) {
+		question.setReadcount(question.getReadcount() + 1);
 		this.questionRepository.save(question);
 	}
 }

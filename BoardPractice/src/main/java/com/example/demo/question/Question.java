@@ -4,21 +4,18 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import javax.validation.constraints.Null;
 
 import com.example.demo.answer.Answer;
 import com.example.demo.user.SiteUser;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
+import org.springframework.boot.context.properties.bind.DefaultValue;
+import org.springframework.lang.Nullable;
 
 @Getter
 @Setter
@@ -33,6 +30,11 @@ public class Question {
 	
 	@Column(columnDefinition = "TEXT")
 	private String content;
+
+	private String voteCount;
+
+	@ColumnDefault("0")
+	private int readcount;
 	
 	private LocalDateTime createDate;
 	
@@ -46,7 +48,4 @@ public class Question {
 	
 	@ManyToMany
 	Set<SiteUser> voter;
-	
-	@ManyToMany
-	Set<SiteUser> read;
 }
