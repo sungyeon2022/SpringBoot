@@ -72,7 +72,7 @@ public class QuestionController {
 			return "question_form";
 		}
 		SiteUser siteUser = this.userService.getUser(principal.getName());
-		this.questionService.create(questionForm.getSubject(), questionForm.getContent(),siteUser);
+		this.questionService.create(questionForm.getSubject(), questionForm.getContent(), questionForm.getCategory(),siteUser);
 		return "redirect:/question/list";
 		
 	}

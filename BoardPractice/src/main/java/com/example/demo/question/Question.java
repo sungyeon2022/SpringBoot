@@ -24,7 +24,10 @@ public class Question {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
+	@Column(columnDefinition = "TEXT")
+	private String category;
+
 	@Column(length = 200)
 	private String subject;
 	

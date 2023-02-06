@@ -12,7 +12,20 @@
       <label for="content" class="form-label">내용</label>
       <textarea  th:field="*{content}" rows="10" class="form-control"></textarea>
     </div>
-    <input type="submit" value="저장하기" class="btn btn-primary my-2">
+    <div class="dropdown">
+      <input type="submit" value="저장하기" class="btn btn-primary">
+      <button class="btn btn-secondary dropdown-toggle " type="button"
+              id="dropdownMenuButton1" data-bs-toggle="dropdown"
+              >
+        카테고리
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li><a class="dropdown-item" th:field="*{category == '공지'}">공지</a></li>
+        <li><a class="dropdown-item" href="#">생활</a></li>
+        <li><a class="dropdown-item" href="#">공부</a></li>
+        <li><a class="dropdown-item" href="#">건의</a></li>
+      </ul>
+     </div>
   </form>
 </div>
 </html>

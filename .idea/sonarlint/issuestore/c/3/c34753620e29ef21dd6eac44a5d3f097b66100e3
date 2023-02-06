@@ -1,0 +1,20 @@
+
+P
+java:S1128"4Remove this unused import 'java.security.Principal'.(’ÛŞ[8İ¹Ğ–Ö0
+S
+java:S1128
+"6Remove this unused import 'lombok.extern.slf4j.Slf4j'.(ûúÄ®8±Ş‡Ø0
+e
+java:S1128"HRemove this unused import 'org.springframework.context.annotation.Bean'.(‚î‰Ş8±Ş‡Ø0
+w
+java:S1128"URemove this unused import 'org.springframework.security.access.prepost.PreAuthorize'.(ˆ†×ùÿÿÿÿ8±Ş‡Ø0
+s
+java:S1128"VRemove this unused import 'org.springframework.security.core.userdetails.UserDetails'.(ÊÁ¥8±Ş‡Ø0
+z
+java:S1128"]Remove this unused import 'org.springframework.security.core.userdetails.UserDetailsService'.(¶…¥à8±Ş‡Ø0
+†
+java:S1128"dRemove this unused import 'org.springframework.security.core.userdetails.UsernameNotFoundException'.(Í£Ö¶ùÿÿÿÿ8±Ş‡Ø0
+
+java:S1128"]Remove this unused import 'org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder'.(åÅÚ…ûÿÿÿÿ8±Ş‡Ø0
+[
+java:S1128"9Remove this unused import 'org.springframework.ui.Model'.(ê†ıÿÿÿÿ8Ş¹Ğ–Ö0

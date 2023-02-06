@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
+<html layout:decorate="~{layout}">
+  <div layout:fragment="content" class="container">
+    <h5 class="my-3 border-bottom pb-2">접속권한이 없습니다.</h5>
+    <div class="d-flex justify-content-end gap-2">
+      <button type="button" class="btn btn-primary" onclick="location.href='/'" style="cursor:pointer">메인 페이지</button>
+      <button type="button" class="btn btn-primary" onclick="location.href='/user/login'" style="cursor:pointer">로그인</button>
+    </div>
+  </div>
 </html>

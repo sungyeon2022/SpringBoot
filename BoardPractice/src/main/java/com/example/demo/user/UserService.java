@@ -1,11 +1,14 @@
 package com.example.demo.user;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import com.example.demo.DataNotFoundException;
 
-import groovyjarjarantlr4.v4.parse.ANTLRParser.id_return;
+import com.example.demo.UserRole;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -28,6 +31,8 @@ public class UserService{
 		user.setUsername(username);
 		user.setEmail(email);
 		user.setPassword(passwordEncoder.encode(password));
+		user.setCreateAt(LocalDateTime.now());
+		user.setRole(UserRole.USER.getValue());
 		this.userRepository.save(user);
 		return user;
 	}
@@ -42,15 +47,17 @@ public class UserService{
 	
 	public boolean matcher(String username, String submitpw) {
 		Optional<SiteUser> siteUser = this.userRepository.findByUsername(username);
-		if(!siteUser.isPresent()) {
+		if(siteUser.isEmpty()) {
 			throw new DataNotFoundException("사용자를 찾을 수 없습니다.");		
 			}
 		return passwordEncoder.matches(submitpw,siteUser.get().getPassword());
 	}
 	
-	public void modifyPw(SiteUser siteUser, String modipw) throws Exception {
+	public void modifyPw(SiteUser siteUser, String modipw) {
 		String securePw = passwordEncoder.encode(modipw);
 		siteUser.setPassword(securePw);
+		siteUser.setUpdateAt(LocalDateTime.now());
 		this.userRepository.save(siteUser);
 	}
+
 }

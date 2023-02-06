@@ -1,0 +1,7 @@
+
+b	java:S112N"FDefine and throw a dedicated exception instead of using a generic one.(—ºÍá8‰÷‡Ø0
+b
+java:S1192"LDefine a constant instead of duplicating this literal "signup_form" 5 times.(óÎİù
+\
+java:S1192I"GDefine a constant instead of duplicating this literal "pwmodi" 5 times.(Ï”µ-
+h	java:S100A"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ıõ×ãıÿÿÿÿ

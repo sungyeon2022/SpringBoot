@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.example.demo.UserRole;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -17,23 +18,31 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class UserSecurityService implements UserDetailsService{
 	private final UserRepository userRepository;
-	
+
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
-		Optional<SiteUser> _siteUser = this.userRepository.findByUsername(username);
-		if(_siteUser.isEmpty()) {
-			throw new UsernameNotFoundException("사용자를 찾을 수 없습니다.");
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+		Optional<SiteUser> siteUser = userRepository.findByUsername(username);
+
+		if(siteUser.isPresent()) {
+			SiteUser user = siteUser.get();
+
+			SiteUser authUser = SiteUser.builder()
+					.idLong(user.getIdLong())
+					.username(user.getUsername())
+					.password(user.getPassword())
+					.email(user.getEmail())
+					.role(user.getRole())
+					.createAt(user.getCreateAt())
+					.updateAt(user.getUpdateAt())
+					.build();
+			log.info("authUser : {}", authUser);
+			return authUser;
 		}
-		SiteUser siteUser = _siteUser.get();
-		List<GrantedAuthority> authorities = new ArrayList<>();
-		if ("admin".equals(username)) {
-			authorities.add(new SimpleGrantedAuthority(UserRole.ADMIN.getValue()));
-		} else {
-			authorities.add(new SimpleGrantedAuthority(UserRole.USER.getValue()));
-		}
-		return new User(siteUser.getUsername(),siteUser.getPassword(),authorities);
+		return null;
 	}
 
 }

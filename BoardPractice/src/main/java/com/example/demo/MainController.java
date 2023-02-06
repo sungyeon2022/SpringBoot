@@ -12,7 +12,12 @@ public class MainController {
 	public String index() {
 		return "pb에 오신것을 환영합니다.";
 	}
-	
+
+	@RequestMapping("/accessDenied")
+	public String accessDenied(){
+		return "AccessDenied";
+	}
+
 	@RequestMapping("/")
 	public String root() {
 		return "redirect:/question/list";

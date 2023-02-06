@@ -3,29 +3,25 @@ package com.example.demo.user;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 
-import org.apache.coyote.http11.filters.SavedRequestInputFilter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import lombok.Getter;
-import lombok.Setter;
-
 @Getter
 @Setter
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+
 public class SiteUser implements UserDetails{
 
 	private static final long serialVersionUID = 1L;
@@ -39,7 +35,7 @@ public class SiteUser implements UserDetails{
 	private String email;
 	private String role; // 권한 정보
 	private LocalDateTime createAt; // 생성 시간
-	private LocalDateTime updateAt;	// 변경 시간
+	private LocalDateTime updateAt; // 변경 시간
 
     @ElementCollection
 		
@@ -56,7 +52,7 @@ public class SiteUser implements UserDetails{
 	public String getUsername() {
 		return username;
 	}
-		
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		Collection<GrantedAuthority> authorities = new ArrayList<>();
@@ -76,7 +72,6 @@ public class SiteUser implements UserDetails{
 	}
 	@Override
 	public boolean isCredentialsNonExpired() {
-
 		return true;
 	}
 	@Override
